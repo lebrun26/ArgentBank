@@ -4,7 +4,10 @@ import React from "react";
 const Header = () => {
   return (
     <header>
-      <img src="/images/argentBankLogo.png"></img>
+      <img
+        src="/images/argentBankLogo.png"
+        alt="logo de l'entreprise ArgentBank"
+      ></img>
     </header>
   );
 };
