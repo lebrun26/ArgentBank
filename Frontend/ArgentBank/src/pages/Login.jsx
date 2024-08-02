@@ -2,13 +2,12 @@
 import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import Body from "../container/Body";
-
+import Body_Login from "../container/Body_Login";
 const Login = () => {
   return (
     <div className="body">
       <Header />
-      <Body />
+      <Body_Login />
       <Footer />
     </div>
   );
