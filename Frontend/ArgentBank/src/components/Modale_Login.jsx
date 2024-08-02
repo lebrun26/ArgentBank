@@ -1,7 +1,14 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
+import { useNavigate } from "react-router";
 
 const Modale_Login = () => {
+  const navigate = useNavigate();
+
+  const handleNavigate = (path) => {
+    navigate(path);
+  };
+
   return (
     <section className="sign-in-content">
       <i className="fa fa-user-circle sign-in-icon" />
@@ -21,7 +28,7 @@ const Modale_Login = () => {
         </div>
         <button
           className="sign-in-button"
-          onClick={() => (window.location.href = "/user")}
+          onClick={() => handleNavigate("/user")}
         >
           Sign In
         </button>
