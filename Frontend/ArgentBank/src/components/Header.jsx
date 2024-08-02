@@ -18,6 +18,10 @@ const Header = () => {
             <i className="fa fa-user-circle"></i>
             <span> Sign In</span>
           </a>
+          <a className="main-nav-item" href="/">
+            <i className="fa fa-sign-out" />
+            Sign Out
+          </a>
         </div>
       </nav>
     </header>
