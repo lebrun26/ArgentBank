@@ -62,31 +62,13 @@ const Modale_Login = () => {
   };
 
   // Système de logout
-  const logOut = () => {
-    const btnLoginOut = document.querySelector(".signInOut");
-    const storedToken = window.localStorage.getItem("token");
-    const sessionToken = window.sessionStorage.getItem("token");
-
-    btnLoginOut?.addEventListener("click", () => {
-      if (storedToken) {
-        window.localStorage.removeItem("token");
-        btnLoginOut.textContent = "Login";
-        window.location.reload();
-      } else if (sessionToken) {
-        window.sessionStorage.removeItem("token");
-        btnLoginOut.textContent = "Login";
-      } else {
-        window.location.href = "/";
-      }
-    });
-  };
-
+  const logOut = () => {};
   logOut();
 
   return (
     <section className="sign-in-content">
       <i className="fa fa-user-circle sign-in-icon" />
-      <h1 className="signInOut">Sign In</h1>
+      <h1>Sign In</h1>
       <form className="form_login" onSubmit={handleLogin}>
         <div className="input-wrapper">
           <label htmlFor="email">Email</label>
