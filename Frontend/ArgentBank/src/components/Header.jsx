@@ -1,11 +1,13 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import { clearToken } from "../actions/login.action";
 
 const Header = () => {
   const token = useSelector((state) => state.loginReducer.token);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   //Fonction pour déconnecter l'utilisateur
 
   const handleSignOut = (event) => {
@@ -13,6 +15,7 @@ const Header = () => {
     // Suppression du token dans les 2 stores
     localStorage.removeItem("token");
     sessionStorage.removeItem("token");
+    dispatch(clearToken());
     navigate("/");
   };
 
