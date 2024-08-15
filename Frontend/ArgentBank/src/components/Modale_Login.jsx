@@ -48,8 +48,9 @@ const Modale_Login = () => {
       if (rememberMe) {
         localStorage.setItem("token", token);
       }
-
-      navigate("/user");
+      if (sessionStorage.getItem("token") || localStorage.getItem("token")) {
+        navigate("/user");
+      }
     } else {
       const loginError = document.querySelector(".loginError");
       if (!loginError.querySelector(".error-message")) {
@@ -60,10 +61,6 @@ const Modale_Login = () => {
       }
     }
   };
-
-  // Système de logout
-  const logOut = () => {};
-  logOut();
 
   return (
     <section className="sign-in-content">
