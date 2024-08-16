@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { clearToken } from "../actions/login.action";
 
-const Header = () => {
+const Header = async () => {
   const token = useSelector((state) => state.loginReducer.token);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -18,11 +18,25 @@ const Header = () => {
     dispatch(clearToken());
     navigate("/");
   };
-
+  // Redirection vers la page Home
   const handleHome = (event) => {
     event.preventDefault();
     navigate("/");
   };
+
+  // Appel fetch du profile
+  const reponseProfile = await fetch(
+    "http://localhost:3001/api/v1/user/profile",
+    {
+      method: "POST",
+      headers: {
+        "content-Type": "application/json",
+        Authorization: "Bearer" + token,
+      },
+      body: null,
+    }
+  );
+  console.log(reponseProfile);
 
   return (
     <header>
@@ -43,10 +57,16 @@ const Header = () => {
               <span> Sign In</span>
             </a>
           ) : (
-            <a className="main-nav-item signOut" onClick={handleSignOut}>
-              <i className="fa fa-sign-out" />
-              Sign Out
-            </a>
+            <>
+              <a className="main-nav-item signIn" href="/login">
+                <i className="fa fa-user-circle"></i>
+                <span> Sign In</span>
+              </a>
+              <a className="main-nav-item signOut" onClick={handleSignOut}>
+                <i className="fa fa-sign-out" />
+                Sign Out
+              </a>
+            </>
           )}
         </div>
       </nav>
