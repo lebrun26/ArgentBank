@@ -19,6 +19,11 @@ const Header = () => {
     navigate("/");
   };
 
+  const handleHome = (event) => {
+    event.preventDefault();
+    navigate("/");
+  };
+
   return (
     <header>
       <nav className="main-nav">
@@ -27,6 +32,7 @@ const Header = () => {
             className="main-nav-logo-image"
             src="/images/argentBankLogo.png"
             alt="logo de l'entreprise ArgentBank"
+            onClick={handleHome}
           ></img>
           <h1 className="sr-only">Argent Bank</h1>
         </a>
@@ -37,11 +43,7 @@ const Header = () => {
               <span> Sign In</span>
             </a>
           ) : (
-            <a
-              className="main-nav-item signOut"
-              href="/"
-              onClick={handleSignOut}
-            >
+            <a className="main-nav-item signOut" onClick={handleSignOut}>
               <i className="fa fa-sign-out" />
               Sign Out
             </a>
