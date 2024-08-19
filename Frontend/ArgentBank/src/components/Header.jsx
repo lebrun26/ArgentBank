@@ -1,11 +1,15 @@
 // eslint-disable-next-line no-unused-vars
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { clearToken } from "../actions/login.action";
+import { setUser } from "../actions/user.action";
 
-const Header = async () => {
+const Header = () => {
   const token = useSelector((state) => state.loginReducer.token);
+  const user = useSelector((state) => state.userReducer.user);
+  const username = user ? user.userName : "User";
+  console.log("token: ", token);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   //Fonction pour déconnecter l'utilisateur
@@ -25,18 +29,35 @@ const Header = async () => {
   };
 
   // Appel fetch du profile
-  const reponseProfile = await fetch(
-    "http://localhost:3001/api/v1/user/profile",
-    {
-      method: "POST",
-      headers: {
-        "content-Type": "application/json",
-        Authorization: "Bearer" + token,
-      },
-      body: null,
-    }
-  );
-  console.log(reponseProfile);
+  useEffect(() => {
+    const fetchProfile = async () => {
+      if (token) {
+        try {
+          const reponseProfile = await fetch(
+            "http://localhost:3001/api/v1/user/profile",
+            {
+              method: "POST",
+              headers: {
+                "content-Type": "application/json",
+                Authorization: "Bearer" + token,
+              },
+              body: null,
+            }
+          );
+          if (reponseProfile.status === 200) {
+            const data = await reponseProfile.json();
+            dispatch(setUser(data.body));
+            console.log("La data de mon body : ", data.body);
+          } else {
+            console.error("Erreur lors de la récupération du profil");
+          }
+        } catch (error) {
+          console.error("Erreur : ", error);
+        }
+      }
+    };
+    fetchProfile();
+  }, [token, dispatch]); // On refait la requete si le token change et mon met disptach en tant que dépendance
 
   return (
     <header>
@@ -60,7 +81,7 @@ const Header = async () => {
             <>
               <a className="main-nav-item signIn" href="/login">
                 <i className="fa fa-user-circle"></i>
-                <span> Sign In</span>
+                <span> {username}</span>
               </a>
               <a className="main-nav-item signOut" onClick={handleSignOut}>
                 <i className="fa fa-sign-out" />

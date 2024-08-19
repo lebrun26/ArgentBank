@@ -1,5 +1,14 @@
-const initialState = {};
+import { GET_USER } from "../actions/user.action";
 
-export default function userReducer(state = initialState) {
-  return state;
+const initialState = {
+  user: null,
+};
+
+export default function userReducer(state = initialState, action) {
+  switch (action.type) {
+    case GET_USER:
+      return { ...state, user: action.payload };
+    default:
+      return state;
+  }
 }

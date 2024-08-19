@@ -1,13 +1,16 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
+import { useSelector } from "react-redux";
 
 const Modale_Balance = () => {
+  const user = useSelector((state) => state.userReducer.user);
+  const username = user ? user.userName : "User";
   return (
     <>
       <div className="header">
         <h1>
           Welcome back <br />
-          Tony Jarvis !
+          {username} !
         </h1>
         <button className="edit-button">Edit Name</button>
       </div>
