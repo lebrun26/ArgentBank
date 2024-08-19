@@ -14,6 +14,23 @@ const Modale_Balance = () => {
         </h1>
         <button className="edit-button">Edit Name</button>
       </div>
+      {/* Formulaire pour changement du username */}
+      <div className="form_edit_username">
+        <form>
+          <label htmlFor="username">User Name</label>
+          <input type="text" name="username" />
+          <label htmlFor="first_name">First Name</label>
+          <input type="text" name="first_name" />
+          <label htmlFor="last_name">Last Name</label>
+          <input type="text" name="last_name" />
+          <button type="submit" className="btn_save">
+            Save
+          </button>
+          <button type="submit" className="btn_cancel">
+            Cancel
+          </button>
+        </form>
+      </div>
       <h2 className="sr-only">Accounts</h2>
       <section className="account">
         <div className="account-content-wrapper">
