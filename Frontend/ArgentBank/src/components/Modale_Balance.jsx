@@ -50,6 +50,14 @@ const Modale_Balance = () => {
     if (reponseEdit.status === 200) {
       const data = await reponseEdit.json();
       console.log("La modif : ", data);
+    } else {
+      const errorMessage = document.querySelector(".error_message");
+      if (!errorMessage.querySelector("error_message_edit")) {
+        const p = document.createElement("p");
+        p.className = "error_message_edit";
+        p.textContent = "User Name invalid ou manquant";
+        errorMessage.appendChild(p);
+      }
     }
   };
 
