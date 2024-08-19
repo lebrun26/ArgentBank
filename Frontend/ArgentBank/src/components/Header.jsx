@@ -9,7 +9,6 @@ const Header = () => {
   const token = useSelector((state) => state.loginReducer.token);
   const user = useSelector((state) => state.userReducer.user);
   const username = user ? user.userName : "User";
-  console.log("token: ", token);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   //Fonction pour déconnecter l'utilisateur
@@ -47,7 +46,6 @@ const Header = () => {
           if (reponseProfile.status === 200) {
             const data = await reponseProfile.json();
             dispatch(setUser(data.body));
-            console.log("La data de mon body : ", data.body);
           } else {
             console.error("Erreur lors de la récupération du profil");
           }
