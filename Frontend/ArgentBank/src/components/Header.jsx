@@ -59,6 +59,11 @@ const Header = () => {
     fetchProfile();
   }, [token, dispatch]); // On refait la requete si le token change et mon met disptach en tant que dépendance
 
+  const signInStyle = {
+    textDecoration: "none",
+    cursor: "default",
+  };
+
   return (
     <header>
       <nav className="main-nav">
@@ -73,13 +78,13 @@ const Header = () => {
         </a>
         <div>
           {!token ? (
-            <a className="main-nav-item signIn" href="/login">
+            <a className="main-nav-item" href="/login">
               <i className="fa fa-user-circle"></i>
               <span> Sign In</span>
             </a>
           ) : (
             <>
-              <a className="main-nav-item signIn" href="/login">
+              <a className="main-nav-item signIn" style={signInStyle}>
                 <i className="fa fa-user-circle"></i>
                 <span> {username}</span>
               </a>
