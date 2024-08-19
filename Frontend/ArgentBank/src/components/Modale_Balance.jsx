@@ -1,10 +1,18 @@
 // eslint-disable-next-line no-unused-vars
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
 const Modale_Balance = () => {
   const user = useSelector((state) => state.userReducer.user);
   const username = user ? user.userName : "User";
+  const lastName = user ? user.lastName : "Last Name";
+  const firstName = user ? user.firstName : "First Name";
+  console.log(username);
+
+  // Pour le formulaire
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
   return (
     <>
       <div className="header">
@@ -12,24 +20,36 @@ const Modale_Balance = () => {
           Welcome back <br />
           {username} !
         </h1>
-        <button className="edit-button">Edit Name</button>
+        <button className="edit-button" onClick={openModal}>
+          Edit Name
+        </button>
       </div>
       {/* Formulaire pour changement du username */}
-      <div className="form_edit_username">
-        <form>
-          <label htmlFor="username">User Name</label>
-          <input type="text" name="username" />
-          <label htmlFor="first_name">First Name</label>
-          <input type="text" name="first_name" />
-          <label htmlFor="last_name">Last Name</label>
-          <input type="text" name="last_name" />
-          <button type="submit" className="btn_save">
+      <div
+        className={`container_edit_username ${isModalOpen ? "open" : "closed"}`}
+      >
+        <form className="form_edit_username">
+          <label htmlFor="username">
+            User Name:
+            <input type="text" name="username" />
+          </label>
+          <label htmlFor="first_name">
+            First Name :
+            <input type="text" name="first_name" value={firstName} readOnly />
+          </label>
+          <label htmlFor="last_name">
+            Last Name :
+            <input type="text" name="last_name" value={lastName} readOnly />
+          </label>
+        </form>
+        <div className="btn_edit_username">
+          <button type="button" className="btn_save">
             Save
           </button>
-          <button type="submit" className="btn_cancel">
+          <button type="button" className="btn_cancel" onClick={closeModal}>
             Cancel
           </button>
-        </form>
+        </div>
       </div>
       <h2 className="sr-only">Accounts</h2>
       <section className="account">
