@@ -1,13 +1,15 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { editUsername } from "../actions/user.action";
 
 const Modale_Balance = () => {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.userReducer.user);
   const token = useSelector((state) => state.loginReducer.token);
-  const username = user ? user.userName : "User";
-  const lastName = user ? user.lastName : "Last Name";
-  const firstName = user ? user.firstName : "First Name";
+  const username = user?.userName || "User";
+  const lastName = user?.lastName || "Last Name";
+  const firstName = user?.firstName || "First Name";
 
   // Pour le formulaire
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -49,6 +51,8 @@ const Modale_Balance = () => {
     );
     if (reponseEdit.status === 200) {
       const data = await reponseEdit.json();
+      const newUsername = data.body.userName;
+      dispatch(editUsername(newUsername));
       console.log("La modif : ", data);
     } else {
       const errorMessage = document.querySelector(".error_message");
@@ -79,7 +83,7 @@ const Modale_Balance = () => {
         <form className="form_edit_username" onSubmit={handleUsername}>
           <label htmlFor="username">
             User Name:
-            <input type="text" name="username" />
+            <input type="text" name="username" defaultValue={username} />
           </label>
           <label htmlFor="first_name">
             First Name :
