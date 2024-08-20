@@ -12,7 +12,7 @@ import { thunk } from "redux-thunk";
 
 // Redux Persist
 import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage"; // Default is localStorage
+import storage from "redux-persist/lib/storage";
 import { PersistGate } from "redux-persist/integration/react";
 
 // Configuration de Redux Persist
@@ -21,7 +21,7 @@ const persistConfig = {
   storage,
 };
 
-// Application de Redux Persist à votre réducteur racine
+// Application de Redux Persist a la racine
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 // Création du store Redux avec le réducteur persistant
@@ -36,13 +36,11 @@ const store = configureStore({
   devTools: true,
 });
 
-// Création du persistor
+// Création du persist
 const persistor = persistStore(store);
 
-// Obtention du conteneur DOM
 const container = document.getElementById("root");
 
-// Création de la racine
 const root = createRoot(container);
 
 // Les actions

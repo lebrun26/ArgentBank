@@ -118,10 +118,6 @@ input[readonly] {
   margin-right: 0.5rem;
   cursor: pointer;
 }
-.signIn {
-  cursor: pointer;
-  text-decoration: underline;
-}
 
 .main-nav-item:hover {
   text-decoration: underline;

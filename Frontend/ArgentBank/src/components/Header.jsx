@@ -26,6 +26,11 @@ const Header = () => {
     event.preventDefault();
     navigate("/");
   };
+  // Redirection vers la page User
+  const handleUser = (event) => {
+    event.preventDefault();
+    navigate("/user");
+  };
 
   // Appel fetch du profile
   useEffect(() => {
@@ -57,11 +62,6 @@ const Header = () => {
     fetchProfile();
   }, [token, dispatch]); // On refait la requete si le token change et mon met disptach en tant que dépendance
 
-  const signInStyle = {
-    textDecoration: "none",
-    cursor: "default",
-  };
-
   return (
     <header>
       <nav className="main-nav">
@@ -82,7 +82,7 @@ const Header = () => {
             </a>
           ) : (
             <>
-              <a className="main-nav-item signIn" style={signInStyle}>
+              <a className="main-nav-item" onClick={handleUser}>
                 <i className="fa fa-user-circle"></i>
                 <span> {username}</span>
               </a>
