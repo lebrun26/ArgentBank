@@ -11,7 +11,8 @@ const Modale_Balance = () => {
   const lastName = user?.lastName || "Last Name";
   const firstName = user?.firstName || "First Name";
 
-  // Pour le formulaire
+  // ENG: For the form
+  // FR: Pour le formulaire
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -19,10 +20,12 @@ const Modale_Balance = () => {
   const handleUsername = async (event) => {
     event.preventDefault();
 
-    // Recuperation de la valeur saisi par l'utilisateur
+    // ENG: Recovery of the value entered by the user
+    // FR: Recuperation de la valeur saisi par l'utilisateur
     const userName = event.target.querySelector("[name=username]").value;
 
-    // Vérification de la donnée d'entrée
+    // ENG: Checking the input data
+    // FR: Vérification de la donnée d'entrée
     if (!userName) {
       const errorMessage = document.querySelector(".error_message");
       if (!errorMessage.querySelector(".error_message_edit")) {
@@ -34,10 +37,12 @@ const Modale_Balance = () => {
       return;
     }
 
-    // Création de l'Objet à envoyer
+    // ENG: Creation of the Object to send
+    // FR: Création de l'Objet à envoyer
     const editUsernamePush = { userName };
 
-    // Appel de la fonction fetch avec les informations nécessaires
+    // ENG: Calling the fetch function with the necessary information
+    // FR: Appel de la fonction fetch avec les informations nécessaires
     const reponseEdit = await fetch(
       "http://localhost:3001/api/v1/user/profile",
       {
@@ -76,7 +81,8 @@ const Modale_Balance = () => {
           Edit Name
         </button>
       </div>
-      {/* Formulaire pour changement du username */}
+      {/* ENG: Username change form */}
+      {/* FR: Formulaire pour changement du username */}
       <div
         className={`container_edit_username ${isModalOpen ? "open" : "closed"}`}
       >

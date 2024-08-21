@@ -9,15 +9,18 @@ const Modale_Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Fonction pour le login
+  // ENG: Function for login
+  // FR: Fonction pour le login
   const handleLogin = async (event) => {
     event.preventDefault();
 
-    // Récupération des valeurs saisies par l'utilisateur
+    // ENG: Retrieving user entered values
+    // FR: Récupération des valeurs saisies par l'utilisateur
     const email = event.target.querySelector("[name=email]").value;
     const password = event.target.querySelector("[name=password]").value;
 
-    // Vérification des données d'entrée
+    // ENG: Checking input data
+    // FR: Vérification des données d'entrée
     if (!email || !password) {
       const loginError = document.querySelector(".loginError");
       if (!loginError.querySelector(".error-message")) {
@@ -29,10 +32,12 @@ const Modale_Login = () => {
       return;
     }
 
-    // Création de l'objet à envoyer
+    // ENG: Creating the object to send
+    // FR: Création de l'objet à envoyer
     const login = { email, password };
 
-    // Appel de la fonction fetch avec les informations nécessaires
+    // ENG: Calling the fetch function with the necessary information
+    // FR: Appel de la fonction fetch avec les informations nécessaires
     const reponse = await fetch("http://localhost:3001/api/v1/user/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -43,7 +48,6 @@ const Modale_Login = () => {
       const data = await reponse.json();
       const token = data.body.token;
       dispatch(setToken(token));
-      //sessionStorage.setItem("token", token);
 
       if (rememberMe) {
         localStorage.setItem("token", token);

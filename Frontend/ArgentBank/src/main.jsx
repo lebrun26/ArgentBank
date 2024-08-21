@@ -21,10 +21,12 @@ const persistConfig = {
   storage,
 };
 
-// Application de Redux Persist a la racine
+// ENG: Applying Redux Persist at the root
+// FR: Application de Redux Persist a la racine
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// Création du store Redux avec le réducteur persistant
+// ENG: Creating the Redux store with the persistent reducer
+// FR: Création du store Redux avec le réducteur persistant
 const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
@@ -36,14 +38,16 @@ const store = configureStore({
   devTools: true,
 });
 
-// Création du persist
+// ENG: Creating persist
+// FR: Création du persist
 const persistor = persistStore(store);
 
 const container = document.getElementById("root");
 
 const root = createRoot(container);
 
-// Les actions
+// ENG: Actions
+// FR: Les actions
 root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>

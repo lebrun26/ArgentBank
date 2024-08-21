@@ -5,7 +5,8 @@ export const setToken = (token) => ({
   payload: token,
 });
 
-// Suppression du token dans le store
+// ENG: Deleting the token in the store
+// FR: Suppression du token dans le store
 export const CLEAR_TOKEN = "CLEAR_TOKEN";
 
 export const clearToken = () => {

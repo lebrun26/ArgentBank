@@ -11,28 +11,33 @@ const Header = () => {
   const username = user ? user.userName : "User";
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  //Fonction pour déconnecter l'utilisateur
+  // ENG: Function to log out the user
+  // FR: Fonction pour déconnecter l'utilisateur
 
   const handleSignOut = (event) => {
     event.preventDefault();
-    // Suppression du token dans les 2 stores
+    // ENG: Removal of the token in both stores
+    // FR: Suppression du token dans les 2 stores
     localStorage.removeItem("token");
     sessionStorage.removeItem("token");
     dispatch(clearToken());
     navigate("/");
   };
-  // Redirection vers la page Home
+  // ENG: Redirection to Home page
+  // FR: Redirection vers la page Home
   const handleHome = (event) => {
     event.preventDefault();
     navigate("/");
   };
-  // Redirection vers la page User
+  // ENG: Redirection to User page
+  // FR: Redirection vers la page User
   const handleUser = (event) => {
     event.preventDefault();
     navigate("/user");
   };
 
-  // Appel fetch du profile
+  // ENG: Profile fetch call
+  // FR: Appel fetch du profile
   useEffect(() => {
     const fetchProfile = async () => {
       if (token) {
@@ -60,7 +65,9 @@ const Header = () => {
       }
     };
     fetchProfile();
-  }, [token, dispatch]); // On refait la requete si le token change et mon met disptach en tant que dépendance
+    // ENG: We redo the request if the token changes and my puts disptach as a dependency
+    // FR: On refait la requete si le token change et mon met disptach en tant que dépendance
+  }, [token, dispatch]);
 
   return (
     <header>

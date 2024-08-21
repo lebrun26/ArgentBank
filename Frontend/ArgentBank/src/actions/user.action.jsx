@@ -5,7 +5,8 @@ export const setUser = (user) => ({
   payload: user,
 });
 
-// Modification du store avec la nouvelle valeur de Username
+//ENG: Modification of the store with the new Username value
+// FR: Modification du store avec la nouvelle valeur de Username
 export const EDIT_USERNAME = "EDIT_USERNAME";
 
 export const editUsername = (edit) => ({
