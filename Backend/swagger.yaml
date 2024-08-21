@@ -1,9 +1,9 @@
-swagger: '2.0'
+swagger: "2.0"
 info:
   title: Bank Argent API documentation
   description: Contains all available API endpoints in this codebase
-  version: '1.0.0'
-  termsOfService: 'http://swagger.io/terms/'
+  version: "1.0.0"
+  termsOfService: "http://swagger.io/terms/"
 host: localhost:3001
 basePath: /api/v1
 schemes:
@@ -21,17 +21,17 @@ paths:
           description: Login Payload
           required: true
           schema:
-            $ref: '#/definitions/Login'
+            $ref: "#/definitions/Login"
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: Login Successfully
           schema:
-            $ref: '#/definitions/LoginResponse'
-        '400':
+            $ref: "#/definitions/LoginResponse"
+        "400":
           description: Invalid Fields
-        '500':
+        "500":
           description: Internal Server Error
   /user/signup:
     post:
@@ -45,17 +45,17 @@ paths:
           description: Signup Payload
           required: true
           schema:
-            $ref: '#/definitions/User'
+            $ref: "#/definitions/User"
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: Signup Successfully
           schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
+            $ref: "#/definitions/ApiResponse"
+        "400":
           description: Invalid Fields
-        '500':
+        "500":
           description: Internal Server Error
   /user/profile:
     post:
@@ -65,16 +65,14 @@ paths:
         - User Module
       summary: User Profile API
       description: API for fetching a user profile
-      #produces:
-       # - application/json
       responses:
-        '200':
+        "200":
           description: User profile retrieved successully
           schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
+            $ref: "#/definitions/ApiResponse"
+        "400":
           description: Invalid Fields
-        '500':
+        "500":
           description: Internal Server Error
     put:
       security:
@@ -89,17 +87,96 @@ paths:
           description: Update user profile attributes
           required: true
           schema:
-            $ref: '#/definitions/UserProfile'
+            $ref: "#/definitions/UserProfile"
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: User profile retrieved successully
           schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
+            $ref: "#/definitions/ApiResponse"
+        "400":
           description: Invalid Fields
-        '500':
+        "500":
+          description: Internal Server Error
+
+  /user/account:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Account
+      description: API for retrieving user account
+      responses:
+        "200":
+          description: Accounts retrieved successfully
+          schema:
+            $ref: "#/definitions/Account"
+        "401":
+          description: Unauthorized user
+        "500":
+          description: Internal Server Error
+  /user/account/{accountID}/transaction:
+    parameters:
+      - name: accountID
+        in: path
+        description: The ID of the user account
+        required: true
+        type: string
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Transaction
+      description: API for retrieving list of transactions assiocated with an account
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Signup Successfully
+          schema:
+            $ref: "#/definitions/ApiResponseTransaction"
+        "401":
+          description: Unauthorized User
+        "404":
+          description: Account not found
+        "500":
+          description: Internal Server Error
+  /user/{transactionID}/transaction:
+    parameters:
+      - name: transactionID
+        in: path
+        description: The ID of the transaction
+        required: true
+        type: string
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: API Transaction Modification
+      description: API for updating a transaction
+      parameters:
+        - in: body
+          name: body
+          description: Update transaction attributes
+          required: true
+          schema:
+            $ref: "#/definitions/EditTransaction"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Edit transaction send successfully
+          schema:
+            $ref: "#/definitions/ApiResponseTransaction"
+        "400":
+          description: Invalid Fields
+        "401":
+          description: Unauthorized User
+        "500":
           description: Internal Server Error
 securityDefinitions:
   Bearer:
@@ -156,3 +233,52 @@ definitions:
     properties:
       userName:
         type: string
+  Account:
+    properties:
+      accountID:
+        type: string
+        description: bank account ID
+      accountName:
+        type: string
+        description: Account Name
+      transactionNumbers:
+        type: string
+        description: Transaction Number
+      currentBalance:
+        type: number
+        description: Current Balance
+  ApiResponseTransaction:
+    properties:
+      transactionID:
+        type: string
+        description: transactionID
+      transactionType:
+        type: string
+        description: transactionType
+      date:
+        type: string
+        format: date-time
+        description: date transaction
+      description:
+        type: string
+        description: Description
+      amount:
+        type: number
+        description: Amount
+      balance:
+        type: number
+        description: Balance
+      category:
+        type: string
+        description: Category
+      note:
+        type: string
+        description: Note
+  EditTransaction:
+    properties:
+      category:
+        type: string
+        description: Category
+      note:
+        type: string
+        description: Note

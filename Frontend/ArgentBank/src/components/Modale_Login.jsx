@@ -43,10 +43,12 @@ const Modale_Login = () => {
       const data = await reponse.json();
       const token = data.body.token;
       dispatch(setToken(token));
-      sessionStorage.setItem("token", token);
+      //sessionStorage.setItem("token", token);
 
       if (rememberMe) {
         localStorage.setItem("token", token);
+      } else if (!rememberMe) {
+        sessionStorage.setItem("token", token);
       }
       if (sessionStorage.getItem("token") || localStorage.getItem("token")) {
         navigate("/user");

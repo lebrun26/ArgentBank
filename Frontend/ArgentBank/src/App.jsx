@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import User from "./pages/User";
-import Error from "./pages/Error";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
@@ -21,7 +20,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="*" element={<Error />} />
+          <Route path="*" element={<Home />} />
         </Routes>
       </BrowserRouter>
     </div>
