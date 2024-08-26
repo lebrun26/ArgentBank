@@ -33,6 +33,7 @@ paths:
           description: Invalid Fields
         "500":
           description: Internal Server Error
+
   /user/signup:
     post:
       tags:
@@ -57,6 +58,7 @@ paths:
           description: Invalid Fields
         "500":
           description: Internal Server Error
+
   /user/profile:
     post:
       security:
@@ -67,7 +69,7 @@ paths:
       description: API for fetching a user profile
       responses:
         "200":
-          description: User profile retrieved successully
+          description: User profile retrieved successfully
           schema:
             $ref: "#/definitions/ApiResponse"
         "400":
@@ -92,7 +94,7 @@ paths:
         - application/json
       responses:
         "200":
-          description: User profile retrieved successully
+          description: User profile updated successfully
           schema:
             $ref: "#/definitions/ApiResponse"
         "400":
@@ -100,64 +102,68 @@ paths:
         "500":
           description: Internal Server Error
 
-  /user/account:
-    post:
-      security:
-        - Bearer: []
-      tags:
-        - Transaction Module
-      summary: Account
-      description: API for retrieving user account
-      responses:
-        "200":
-          description: Accounts retrieved successfully
-          schema:
-            $ref: "#/definitions/Account"
-        "401":
-          description: Unauthorized user
-        "500":
-          description: Internal Server Error
-  /user/account/{accountID}/transaction:
+  /user/{userId}/transactions:
     parameters:
-      - name: accountID
+      - name: userId
         in: path
-        description: The ID of the user account
+        description: The ID of the user
         required: true
         type: string
-    post:
+    get:
       security:
         - Bearer: []
       tags:
         - Transaction Module
       summary: Transaction
-      description: API for retrieving list of transactions assiocated with an account
-      produces:
-        - application/json
+      description: API to retrieve information from all transactions
       responses:
         "200":
-          description: Signup Successfully
+          description: transactions recovered successfully
           schema:
-            $ref: "#/definitions/ApiResponseTransaction"
+            $ref: "#/definitions/Account"
+        "400":
+          description: Invalid Fields
         "401":
-          description: Unauthorized User
+          description: Unauthorized user
         "404":
-          description: Account not found
+          description: Invalid UserId
         "500":
           description: Internal Server Error
-  /user/{transactionID}/transaction:
+
+  /user/transaction/{transactionId}:
     parameters:
-      - name: transactionID
+      - name: transactionId
         in: path
         description: The ID of the transaction
         required: true
         type: string
-    put:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Transaction
+      description: API for retrieving transaction details
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Transaction retrieved successfully
+          schema:
+            $ref: "#/definitions/Transaction"
+        "401":
+          description: Unauthorized User
+        "404":
+          description: Invalid transactionId
+        "500":
+          description: Internal Server Error
+    patch:
       security:
         - Bearer: []
       tags:
         - Transaction Module
       summary: API Transaction Modification
-      description: API for updating a transaction
+      description: API for updating a transaction only on category and note
       parameters:
         - in: body
           name: body
@@ -169,46 +175,50 @@ paths:
         - application/json
       responses:
         "200":
-          description: Edit transaction send successfully
+          description: Transaction updated successfully
           schema:
-            $ref: "#/definitions/ApiResponseTransaction"
+            $ref: "#/definitions/Transaction"
         "400":
           description: Invalid Fields
         "401":
           description: Unauthorized User
         "500":
           description: Internal Server Error
+
 securityDefinitions:
   Bearer:
     type: apiKey
     name: Authorization
     in: header
+
 definitions:
   User:
     properties:
       email:
         type: string
-        description: user email
+        description: User email
       password:
         type: string
-        description: user password
+        description: User password
       firstName:
         type: string
-        description: user first name
+        description: User first name
       lastName:
         type: string
-        description: user last name
+        description: User last name
       userName:
         type: string
-        description: user public name
+        description: User public name
+
   Login:
     properties:
       email:
         type: string
-        description: user email
+        description: User email
       password:
         type: string
-        description: user password
+        description: User password
+
   ApiResponse:
     type: object
     properties:
@@ -223,62 +233,62 @@ definitions:
             type: string
           email:
             type: string
+
   LoginResponse:
     type: object
     properties:
       token:
         type: string
+
   UserProfile:
     type: object
     properties:
       userName:
         type: string
+
   Account:
+    type: object
     properties:
-      accountID:
+      status:
+        type: integer
+      message:
         type: string
-        description: bank account ID
-      accountName:
-        type: string
-        description: Account Name
-      transactionNumbers:
-        type: string
-        description: Transaction Number
-      currentBalance:
-        type: number
-        description: Current Balance
-  ApiResponseTransaction:
+      body:
+        type: object
+        properties:
+          transactions:
+            type: array
+            description: Array Of transactions
+            items:
+              $ref: "#/definitions/Transaction"
+  Transaction:
+    type: object
     properties:
-      transactionID:
+      id:
         type: string
-        description: transactionID
-      transactionType:
+      userId:
         type: string
-        description: transactionType
       date:
         type: string
         format: date-time
-        description: date transaction
-      description:
-        type: string
-        description: Description
       amount:
         type: number
-        description: Amount
       balance:
         type: number
-        description: Balance
+      description:
+        type: string
+      transactionType:
+        type: string
       category:
         type: string
-        description: Category
-      note:
+      notes:
         type: string
-        description: Note
+
   EditTransaction:
     properties:
       category:
         type: string
-        description: Category
-      note:
+        description: Transaction Category
+      notes:
         type: string
-        description: Note
+        description: Additional Note
