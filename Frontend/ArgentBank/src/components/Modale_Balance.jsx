@@ -7,7 +7,7 @@ const Modale_Balance = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userReducer.user);
   const token = useSelector((state) => state.loginReducer.token);
-  const username = user?.userName || "User";
+  const username = user?.userName || "UserName";
   const lastName = user?.lastName || "Last Name";
   const firstName = user?.firstName || "First Name";
 
@@ -58,7 +58,6 @@ const Modale_Balance = () => {
       const data = await reponseEdit.json();
       const newUsername = data.body.userName;
       dispatch(editUsername(newUsername));
-      console.log("La modif : ", data);
     } else {
       const errorMessage = document.querySelector(".error_message");
       if (!errorMessage.querySelector("error_message_edit")) {
